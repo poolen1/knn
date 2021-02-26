@@ -2,12 +2,13 @@ import pandas as pd
 from sklearn.decomposition import PCA
 from knn import KNN
 import matplotlib.pyplot as plt
-import numpy
+import numpy as np
 
 # Read in data from files
 training_set = pd.read_csv("data/MNIST_training.csv")
 test_set = pd.read_csv("data/MNIST_test.csv")
 
+training_set = np.arr(training_set)
 
 #  Function to project multi-D data onto 2D plane
 def project_data(data):
@@ -28,9 +29,12 @@ def project_data(data):
 # training_data = (y, training_PCA)
 
 y = test_set.iloc[:, 0]
+ground_truth = y
 X = training_set.drop('label', axis=1)
 test_data = (y, X)
 # test_PCA = project_data(test_set)
 # test_data = (y, test_PCA)
 
 classifier = KNN(training_set, test_data, 1)
+predictions = classifier.classify_data()
+prediction_percent = classifier.evaluate(ground_truth, predictions)

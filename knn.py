@@ -20,7 +20,7 @@ class KNN:
         return diffs
 
     def get_neighbors(self, query):
-        nn = [] * self.k
+        nn = [] * self.K
         diffs = self.minkowski_distance(query)
         diffs.sort(reverse=True)
         nn = diffs[0:self.k]
@@ -47,12 +47,18 @@ class KNN:
                 category = item[0]
         return category
 
-    def classify_data(self, data):
+    def classify_data(self):
         categories = []
         for item in self.test_data:
-            knn = self.get_neighbors()
+            knn = self.get_neighbors(item)
             categories.append(self.vote(knn))
-        pass
+        return categories
 
-    def evaluate(self):
-        pass
+    def evaluate(self, ground_truth, predictions):
+        total_correct = 0
+        total_items = len(predictions)
+        for i in range(0, total_items):
+            if ground_truth[i] == predictions[i]:
+                total_correct += 1
+        correct_percent = (total_correct/total_items) * 100
+        return correct_percent
