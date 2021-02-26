@@ -1,3 +1,5 @@
+import numpy as np
+
 
 class KNN:
     def __init__(self, training, test, k):
@@ -19,11 +21,10 @@ class KNN:
         return diffs
 
     def get_neighbors(self, query):
-        nn = []
         diffs = self.minkowski_distance(query)
         diffs.sort()
-        print("diffs: ", diffs)
-        nn = diffs[0:self.k]
+        nn = diffs[:self.k]
+        # print(len(nn))
         return nn
 
     @staticmethod
@@ -38,13 +39,20 @@ class KNN:
     def vote(self, knn):
         max_val = 0
         category = 0
-        labels = [self.gather_categories()]
+        labels = np.array(self.gather_categories())
 
-        print(knn)
+        # print(knn)
 
         for item in knn:
-            if knn[0] in item[0]:
-                labels[knn[0]] += 1
+            for label in labels:
+                print(item[1][0], label[0])
+                if item[1][0].any() == label[0]:
+                    labels[item[1][0]] += 1
+                # print(labels[item[1]])
+            # if knn in item[0]:
+            #    labels[knn[0]] += 1
+        print(labels)
+
         for item in labels:
             if item[1] > max_val:
                 max_val = item[1]
