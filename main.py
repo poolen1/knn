@@ -21,9 +21,9 @@ def project_data(data):
 # Model training
 # =================================
 # Project data onto 2 dimensions
-y = training_set.iloc[:, 0]
-X = training_set.drop('label', axis=1)
-training_data = (y, X)
+# y = training_set.iloc[:, 0]
+# X = training_set.drop('label', axis=1)
+# training_data = (y, X)
 # training_PCA = project_data(training_set)
 # training_data = (y, training_PCA)
 
@@ -33,4 +33,4 @@ test_data = (y, X)
 # test_PCA = project_data(test_set)
 # test_data = (y, test_PCA)
 
-classifier = KNN(training_data, test_data, 1)
+classifier = KNN(training_set, test_data, 1)

@@ -26,12 +26,33 @@ class KNN:
         nn = diffs[0:self.k]
         return nn
 
-    def gather_categories(self):
-        pass
+    @staticmethod
+    def gather_categories():
+        labels = {}*10
+        i = 0
+        for label in labels:
+            label = {i, 0}
+        return labels
 
-    def vote(self):
-        pass
+    def vote(self, knn):
+        max_val = 0
+        category = 0
+        labels = self.gather_categories
+        for item in knn:
+            if knn[0] in item[0]:
+                labels[knn[0]] += 1
+        for item in labels:
+            if item[1] > max_val:
+                max_val = item[1]
+                category = item[0]
+        return category
 
     def classify_data(self, data):
-        knn = self.get_neighbors()
+        categories = []
+        for item in self.test_data:
+            knn = self.get_neighbors()
+            categories.append(self.vote(knn))
+        pass
+
+    def evaluate(self):
         pass
