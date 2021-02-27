@@ -18,8 +18,6 @@ X = np.array(X_list)
 test_data = (y, X)
 ground_truth = y
 
-# training_set = np.array(training_set)
-
 start = datetime.now()
 classifier = KNN(training_set, test_data, 3, 2)
 predictions = classifier.classify_data()
@@ -27,7 +25,8 @@ prediction_percent = classifier.evaluate(ground_truth, predictions)
 print("Accuracy: ", prediction_percent, "%")
 print("Runtime: ", datetime.now() - start)
 
-# best: k=3, p=2, 82%
+# best: k=3, p=2 (Euclidean distance), 82%
+# Loop through k in range (1,10) and p in range (1.0, 2.0)
 """
 metadata = []
 for i in range(1, 11):

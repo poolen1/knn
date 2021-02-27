@@ -11,8 +11,7 @@ class KNN:
     def minkowski_distance(self, query):
         diffs = []  # List of (training_item, Minkowski_Val)
         training_labels = self.training_data.iloc[:, 0]
-        training_items = self.training_data.drop('label', axis=1)
-        training_items = np.array(training_items)
+        training_items = np.array(self.training_data.drop('label', axis=1))
         for i in range(len(query)):
             the_sum = sum(abs(query - training_items[i]) ** self.p)
             mink_value = the_sum ** (1/float(self.p))
@@ -55,9 +54,7 @@ class KNN:
 
     def classify_data(self):
         categories = []
-        i = 0
         for item in self.test_data[1]:
-            i += 1
             knn = self.get_neighbors(item)
             categories.append(self.vote(knn))
         return categories
@@ -66,8 +63,6 @@ class KNN:
     def evaluate(ground_truth, predictions):
         total_correct = 0
         total_items = len(predictions)
-        # print("ground: ", ground_truth)
-        # print("predictions: ", predictions)
         for i in range(0, total_items):
             if ground_truth[i] == predictions[i]:
                 total_correct += 1
